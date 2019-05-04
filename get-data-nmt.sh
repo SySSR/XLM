@@ -141,7 +141,7 @@ if [ "$SRC" == "en" -a "$TGT" == "ro" ]; then
 fi
 
 # install tools
-./install-tools.sh
+# ./install-tools.sh
 
 
 #
@@ -239,14 +239,14 @@ echo "$TGT monolingual data concatenated in: $TGT_RAW"
 
 # preprocessing commands - special case for Romanian
 if [ "$SRC" == "ro" ]; then
-  SRC_PREPROCESSING="$REPLACE_UNICODE_PUNCT | $NORM_PUNC -l $SRC | $REM_NON_PRINT_CHAR | $NORMALIZE_ROMANIAN | $REMOVE_DIACRITICS | $TOKENIZER -l $SRC -no-escape -threads $N_THREADS"
+  SRC_PREPROCESSING="$REPLACE_UNICODE_PUNCT | $NORM_PUNC -l $SRC | $REM_NON_PRINT_CHAR | $NORMALIZE_ROMANIAN | $REMOVE_DIACRITICS | perl $TOKENIZER -l $SRC -no-escape -threads $N_THREADS"
 else
-  SRC_PREPROCESSING="$REPLACE_UNICODE_PUNCT | $NORM_PUNC -l $SRC | $REM_NON_PRINT_CHAR |                                            $TOKENIZER -l $SRC -no-escape -threads $N_THREADS"
+  SRC_PREPROCESSING="$REPLACE_UNICODE_PUNCT | $NORM_PUNC -l $SRC | $REM_NON_PRINT_CHAR |                                            perl $TOKENIZER -l $SRC -no-escape -threads $N_THREADS"
 fi
 if [ "$TGT" == "ro" ]; then
-  TGT_PREPROCESSING="$REPLACE_UNICODE_PUNCT | $NORM_PUNC -l $TGT | $REM_NON_PRINT_CHAR | $NORMALIZE_ROMANIAN | $REMOVE_DIACRITICS | $TOKENIZER -l $TGT -no-escape -threads $N_THREADS"
+  TGT_PREPROCESSING="$REPLACE_UNICODE_PUNCT | $NORM_PUNC -l $TGT | $REM_NON_PRINT_CHAR | $NORMALIZE_ROMANIAN | $REMOVE_DIACRITICS | perl $TOKENIZER -l $TGT -no-escape -threads $N_THREADS"
 else
-  TGT_PREPROCESSING="$REPLACE_UNICODE_PUNCT | $NORM_PUNC -l $TGT | $REM_NON_PRINT_CHAR |                                            $TOKENIZER -l $TGT -no-escape -threads $N_THREADS"
+  TGT_PREPROCESSING="$REPLACE_UNICODE_PUNCT | $NORM_PUNC -l $TGT | $REM_NON_PRINT_CHAR |                                            perl $TOKENIZER -l $TGT -no-escape -threads $N_THREADS"
 fi
 
 # tokenize data
